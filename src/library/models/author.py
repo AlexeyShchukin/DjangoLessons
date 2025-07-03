@@ -6,29 +6,37 @@ from django.db import models
 
 class Author(models.Model):
     first_name: str = models.CharField(
-        max_length=100
+        max_length=100,
+        verbose_name='Имя',
     )
     last_name:str = models.CharField(
-        max_length=100
+        max_length=100,
+        verbose_name='Фамилия',
     )
     birth_date: datetime = models.DateField(
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Дата рождения'
     )
     profile = models.URLField(
         max_length=80,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Ссылка на профиль',
+        help_text='Вставить валидный URL'
     )
     is_active = models.BooleanField(
-        default=True
+        default=True,
+        verbose_name='Активен',
+        help_text='Если выключен, автор заблокирован и не доступен'
     )
     rating: float = models.FloatField(
         validators=[
             MinValueValidator(1.0),
             MaxValueValidator(10.0)
         ],
-        default=1.0
+        default=1.0,
+        verbose_name='Рейтинг',
     )
 
     def __str__(self):
